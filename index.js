@@ -18,6 +18,39 @@ const config = {
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev', // Don't forget to change to https if needed
+  allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+  verifyUserEmails: true,
+  
+  emailAdapter: {
+    module: 'nodemailer',
+    options: {
+      host: process.env.MAIL_HOST || "mail.example.com",
+      port: process.env.MAIL_PORT || 587,
+      secure: process.env.MAIL_SECURE || true, // true for 465, false for other ports
+      auth: {
+        user: process.env.MAIL_USER || "USER",
+        pass: process.env.MAIL_PASS || "PASS",
+      },
+    }
+  },
+  accountLockout: {
+    // Lock the account for 5 minutes.
+    duration: 5,
+    // Lock an account after 3 failed log-in attempts
+    threshold: 3,
+    // Unlock the account after a successful password reset
+    unlockOnPasswordReset: true,
+  },
+  // The password policy
+  passwordPolicy: {
+    // Enforce a password of at least 8 characters which contain at least 1 lower case, 1 upper case and 1 digit
+    validatorPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+    // Do not allow the username as part of the password
+    doNotAllowUsername: true,
+    // Do not allow to re-use the last 5 passwords when setting a new password
+    maxPasswordHistory: 5,
+  },
+
   // liveQuery: {
   //   classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   // },
