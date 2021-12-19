@@ -1,6 +1,4 @@
-// Example express application adding the parse-server module to expose Parse
-// compatible API routes.
-
+const mailAdapterConfig = require('./mail/config.js');
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 const path = require('path');
@@ -16,36 +14,59 @@ const config = {
   databaseURI: databaseUri || 'postgres://admin:pgdata@localhost:5432/lb4',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
+<<<<<<< HEAD
   masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/prod', // Don't forget to change to https if needed
+=======
+  appName: process.env.APP_NAME || "MSA",
+  masterKey: process.env.MASTER_KEY || 'masterKey',
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
+  publicServerURL: process.env.PUBLIC_SERVER_URL || "",
+  allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
+  verifyUserEmails: process.env.VERIFY_USERS_EMAILS || true,
+
+  emailAdapter: mailAdapterConfig,
+  accountLockout: {
+    duration: 3,
+    threshold: 5,
+    unlockOnPasswordReset: true,
+  },
+  passwordPolicy: {
+    validatorPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/,
+    doNotAllowUsername: true,
+    maxPasswordHistory: 5,
+  },
+>>>>>>> development
   // liveQuery: {
   //   classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   // },
+  clientKey: process.env.CLIENT_KEY || "",
+  dotNetKey: process.env.DOTNET_KEY || "",
+  restAPIKey: process.env.RESTAPI_KEY || "",
   javascriptKey: process.env.JS_KEY || "",
 };
-// Client-keys like the javascript key or the .NET key are not necessary with parse-server
-// If you wish you require them, you can set them as options in the initialization above:
-// javascriptKey, restAPIKey, dotNetKey, clientKey
 
 const app = express();
-
-// Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
+<<<<<<< HEAD
 
 // Serve the Parse API on the /prod URL prefix
 const mountPath = process.env.PARSE_MOUNT || '/prod';
+=======
+const mountPath = process.env.PARSE_MOUNT || '/parse';
+>>>>>>> development
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
 }
 
-// Parse Server plays nicely with the rest of your web routes
 app.get('/', function (req, res) {
+<<<<<<< HEAD
   res.status(200).send('PROD-SERVER');
+=======
+  res.status(200).send(process.env.APP_NAME || 'MSA');
+>>>>>>> development
 });
-
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
 // app.get('/test', function (req, res) {
 //   res.sendFile(path.join(__dirname, '/public/test.html'));
 // });
@@ -54,9 +75,12 @@ const port = process.env.PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
+<<<<<<< HEAD
     console.log('parse-server-production running on port ' + port + '.');
+=======
+    console.log('parse-server running on port ' + port + '.');
+>>>>>>> development
   });
-  // This will enable the Live Query real-time server
   // ParseServer.createLiveQueryServer(httpServer);
 }
 
