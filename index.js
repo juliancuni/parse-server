@@ -16,11 +16,12 @@ const config = {
   databaseURI: databaseUri || 'postgres://admin:pgdata@localhost:5432/lb4',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse', // Don't forget to change to https if needed
-  liveQuery: {
-    classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
-  },
+  masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev', // Don't forget to change to https if needed
+  // liveQuery: {
+  //   classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
+  // },
+  javascriptKey: process.env.JS_KEY || "",
 };
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
@@ -31,8 +32,8 @@ const app = express();
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-// Serve the Parse API on the /parse URL prefix
-const mountPath = process.env.PARSE_MOUNT || '/parse';
+// Serve the Parse API on the /dev URL prefix
+const mountPath = process.env.PARSE_MOUNT || '/dev';
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
@@ -40,23 +41,23 @@ if (!test) {
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function (req, res) {
-  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+  res.status(200).send('DEV-SERVER');
 });
 
 // There will be a test page available on the /test path of your server url
 // Remove this before launching your app
-app.get('/test', function (req, res) {
-  res.sendFile(path.join(__dirname, '/public/test.html'));
-});
+// app.get('/test', function (req, res) {
+//   res.sendFile(path.join(__dirname, '/public/test.html'));
+// });
 
 const port = process.env.PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
-    console.log('parse-server-example running on port ' + port + '.');
+    console.log('parse-server-development running on port ' + port + '.');
   });
   // This will enable the Live Query real-time server
-  ParseServer.createLiveQueryServer(httpServer);
+  // ParseServer.createLiveQueryServer(httpServer);
 }
 
 module.exports = {
