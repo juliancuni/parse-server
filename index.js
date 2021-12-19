@@ -1,6 +1,6 @@
 // Example express application adding the parse-server module to expose Parse
 // compatible API routes.
-
+const mailAdapterConfig = require('./mail/config.js');
 const express = require('express');
 const ParseServer = require('parse-server').ParseServer;
 const path = require('path');
@@ -19,21 +19,11 @@ const config = {
   appName: process.env.APP_NAME || "MSA",
   masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev', // Don't forget to change to https if needed
+  publicServerURL: process.env.PUBLIC_SERVER_URL || "",
   allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
   verifyUserEmails: process.env.VERIFY_USERS_EMAILS || true,
 
-  // emailAdapter: {
-  //   module: 'nodemailer',
-  //   options: {
-  //     host: process.env.MAIL_HOST || "mail.example.com",
-  //     port: process.env.MAIL_PORT || 587,
-  //     secure: process.env.MAIL_SECURE || true, // true for 465, false for other ports
-  //     auth: {
-  //       user: process.env.MAIL_USER || "USER",
-  //       pass: process.env.MAIL_PASS || "PASS",
-  //     },
-  //   }
-  // },
+  emailAdapter: mailAdapterConfig,
   accountLockout: {
     // Lock the account for 5 minutes.
     duration: 5,
