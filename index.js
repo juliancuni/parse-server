@@ -16,23 +16,24 @@ const config = {
   databaseURI: databaseUri || 'postgres://admin:pgdata@localhost:5432/lb4',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
+  appName: process.env.APP_NAME || "MSA",
   masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev', // Don't forget to change to https if needed
   allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
-  verifyUserEmails: true,
-  
-  emailAdapter: {
-    module: 'nodemailer',
-    options: {
-      host: process.env.MAIL_HOST || "mail.example.com",
-      port: process.env.MAIL_PORT || 587,
-      secure: process.env.MAIL_SECURE || true, // true for 465, false for other ports
-      auth: {
-        user: process.env.MAIL_USER || "USER",
-        pass: process.env.MAIL_PASS || "PASS",
-      },
-    }
-  },
+  verifyUserEmails: process.env.VERIFY_USERS_EMAILS || true,
+
+  // emailAdapter: {
+  //   module: 'nodemailer',
+  //   options: {
+  //     host: process.env.MAIL_HOST || "mail.example.com",
+  //     port: process.env.MAIL_PORT || 587,
+  //     secure: process.env.MAIL_SECURE || true, // true for 465, false for other ports
+  //     auth: {
+  //       user: process.env.MAIL_USER || "USER",
+  //       pass: process.env.MAIL_PASS || "PASS",
+  //     },
+  //   }
+  // },
   accountLockout: {
     // Lock the account for 5 minutes.
     duration: 5,
