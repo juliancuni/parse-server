@@ -3,11 +3,11 @@ const path = require("path");
 const mailAdapterConfig = {
     module: 'parse-smtp-template',
     options: {
-        port: 587,
-        host: "smtp.mail.com",
-        user: "name@domain.com",
-        password: "SecurePassword",
-        fromAddress: 'app@domain.com'
+        host: process.env.MAIL_HOST || "smtp.mail.com",
+        port: process.env.MAIL_PORT || 587,
+        user: process.env.MAIL_USER || "name@domain.com",
+        password: process.env.MAIL_PASS || "SecurePassword",
+        fromAddress: process.env.MAIL_FROM_ADDRESS || 'app@domain.com'
     }
 }
 
