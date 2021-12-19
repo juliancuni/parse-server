@@ -17,7 +17,7 @@ const config = {
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
   masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev', // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/prod', // Don't forget to change to https if needed
   // liveQuery: {
   //   classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   // },
@@ -32,8 +32,8 @@ const app = express();
 // Serve static assets from the /public folder
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-// Serve the Parse API on the /dev URL prefix
-const mountPath = process.env.PARSE_MOUNT || '/dev';
+// Serve the Parse API on the /prod URL prefix
+const mountPath = process.env.PARSE_MOUNT || '/prod';
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
@@ -41,7 +41,7 @@ if (!test) {
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function (req, res) {
-  res.status(200).send('DEV-SERVER');
+  res.status(200).send('PROD-SERVER');
 });
 
 // There will be a test page available on the /test path of your server url
@@ -54,7 +54,7 @@ const port = process.env.PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
-    console.log('parse-server-development running on port ' + port + '.');
+    console.log('parse-server-production running on port ' + port + '.');
   });
   // This will enable the Live Query real-time server
   // ParseServer.createLiveQueryServer(httpServer);
