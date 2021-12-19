@@ -16,7 +16,7 @@ const config = {
   appId: process.env.APP_ID || 'myAppId',
   appName: process.env.APP_NAME || "MSA",
   masterKey: process.env.MASTER_KEY || 'masterKey',
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/dev',
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
   publicServerURL: process.env.PUBLIC_SERVER_URL || "",
   allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
   verifyUserEmails: process.env.VERIFY_USERS_EMAILS || true,
@@ -43,14 +43,14 @@ const config = {
 
 const app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
-const mountPath = process.env.PARSE_MOUNT || '/dev';
+const mountPath = process.env.PARSE_MOUNT || '/parse';
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
 }
 
 app.get('/', function (req, res) {
-  res.status(200).send('DEV-SERVER');
+  res.status(200).send(process.env.APP_NAME || 'MSA');
 });
 // app.get('/test', function (req, res) {
 //   res.sendFile(path.join(__dirname, '/public/test.html'));
