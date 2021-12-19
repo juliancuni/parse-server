@@ -14,10 +14,6 @@ const config = {
   databaseURI: databaseUri || 'postgres://admin:pgdata@localhost:5432/lb4',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppId',
-<<<<<<< HEAD
-  masterKey: process.env.MASTER_KEY || 'masterKey', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/prod', // Don't forget to change to https if needed
-=======
   appName: process.env.APP_NAME || "MSA",
   masterKey: process.env.MASTER_KEY || 'masterKey',
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
@@ -36,7 +32,6 @@ const config = {
     doNotAllowUsername: true,
     maxPasswordHistory: 5,
   },
->>>>>>> development
   // liveQuery: {
   //   classNames: ['Posts', 'Comments'], // List of classes to support for query subscriptions
   // },
@@ -48,24 +43,16 @@ const config = {
 
 const app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
-<<<<<<< HEAD
 
 // Serve the Parse API on the /prod URL prefix
-const mountPath = process.env.PARSE_MOUNT || '/prod';
-=======
 const mountPath = process.env.PARSE_MOUNT || '/parse';
->>>>>>> development
 if (!test) {
   const api = new ParseServer(config);
   app.use(mountPath, api);
 }
 
 app.get('/', function (req, res) {
-<<<<<<< HEAD
-  res.status(200).send('PROD-SERVER');
-=======
   res.status(200).send(process.env.APP_NAME || 'MSA');
->>>>>>> development
 });
 // app.get('/test', function (req, res) {
 //   res.sendFile(path.join(__dirname, '/public/test.html'));
@@ -75,11 +62,7 @@ const port = process.env.PORT || 1337;
 if (!test) {
   const httpServer = require('http').createServer(app);
   httpServer.listen(port, function () {
-<<<<<<< HEAD
-    console.log('parse-server-production running on port ' + port + '.');
-=======
     console.log('parse-server running on port ' + port + '.');
->>>>>>> development
   });
   // ParseServer.createLiveQueryServer(httpServer);
 }
