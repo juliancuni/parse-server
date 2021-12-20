@@ -55,7 +55,6 @@ const config = {
 const app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
 
-// Serve the Parse API on the /prod URL prefix
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 if (!test) {
   const api = new ParseServer(config);
