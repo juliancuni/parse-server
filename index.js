@@ -39,10 +39,22 @@ const config = {
   dotNetKey: process.env.DOTNET_KEY || "",
   restAPIKey: process.env.RESTAPI_KEY || "",
   javascriptKey: process.env.JS_KEY || "",
+
+  customPages: {
+    passwordResetSuccess: "http://yourapp.com/passwordResetSuccess",
+    verifyEmailSuccess: "http://localhost:3000/auth/emailverify/apps/appid/verify_email?token=75lD97om163DmH1WJLruNGDRa&username=tb",
+    parseFrameURL: "http://yourapp.com/parseFrameURL",
+    linkSendSuccess: "http://yourapp.com/linkSendSuccess",
+    linkSendFail: "http://yourapp.com/linkSendFail",
+    invalidLink: "http://yourapp.com/invalidLink",
+    invalidVerificationLink: "http://yourapp.com/invalidVerificationLink",
+    choosePassword: "http://yourapp.com/choosePassword"
+  }
 };
 
 const app = express();
 app.use('/public', express.static(path.join(__dirname, '/public')));
+
 const mountPath = process.env.PARSE_MOUNT || '/parse';
 if (!test) {
   const api = new ParseServer(config);
