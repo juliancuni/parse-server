@@ -43,7 +43,7 @@ const config = {
   customPages: {
     passwordResetSuccess: "http://yourapp.com/passwordResetSuccess",
     verifyEmailSuccess: "http://localhost:3000/auth/emailverify/apps/appid/verify_email?token=75lD97om163DmH1WJLruNGDRa&username=tb",
-    parseFrameURL: "http://yourapp.com/parseFrameURL",
+    // parseFrameURL: "http://yourapp.com/parseFrameURL",
     linkSendSuccess: "http://yourapp.com/linkSendSuccess",
     linkSendFail: "http://yourapp.com/linkSendFail",
     invalidLink: "http://yourapp.com/invalidLink",
