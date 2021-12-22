@@ -50,7 +50,7 @@ const config = {
     invalidVerificationLink: process.env.INVALID_VERIFICATION_LINK || "http://localhost:3000/auth/invalidVerificationLink",
     choosePassword: process.env.PASS_RESET_LINK || "http://localhost:3000/auth/choosePassword"
   },
-  allowHeaders: ['X-Parse-Installation-Id']
+  allowHeaders: ['X-Parse-Installation-Id', 'X-Parse-Client-Key']
 };
 
 const app = express();
