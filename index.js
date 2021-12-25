@@ -16,7 +16,7 @@ const config = {
   appId: process.env.APP_ID || 'myAppId',
   appName: process.env.APP_NAME || "MSA",
   masterKey: process.env.MASTER_KEY || 'masterKey',
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/  ',
   publicServerURL: process.env.PUBLIC_SERVER_URL || "",
   allowClientClassCreation: process.env.CLIENT_CLASS_CREATION || false,
   verifyUserEmails: process.env.VERIFY_USERS_EMAILS || true,

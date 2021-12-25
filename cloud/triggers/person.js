@@ -24,7 +24,8 @@ Parse.Cloud.beforeSave(personClass, function (request, response) {
             // New object, let the save go through
             response.success();
         }
-    }).catch((err) => {
-        response.error(err);
-    });
+    })
 });
+
+
+// E15414075G
