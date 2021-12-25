@@ -1,21 +1,17 @@
 const personClass = "Person";
 const personUniqueKey = "nid";
 //Check person unique nid;
-Parse.Cloud.beforeSave(personClass, (request) => {
+Parse.Cloud.beforeSave(personClass, async (request) => {
     const person = request.object;
-    console.log(person.isNew());
     if (person.isNew()) {
+        console.log("person.isNew()");
         const query = new Parse.Query(personClass);
         query.equalTo(personUniqueKey, person.get(personUniqueKey));
-        query.first({
-            success: (obj) => {
-                if (obj) return Promise.reject("Personi Egziston");
-                return;
-            },
-            error: (err) => {
-                return;
-            }
-        })
+        const exists = await query.first()
+        if (exists) {
+            console.log("Egzistonnnnnnnnnnnnnnn");
+            throw new Parse.Error(101, 'Personi egziston');
+        }
     }
 });
 
