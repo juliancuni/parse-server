@@ -11,7 +11,7 @@ Parse.Cloud.beforeSave(personClass, (request, response) => {
     query.equalTo(personUniqueKey, person.get(personUniqueKey));
     query.first({
         success: (obj) => {
-            if (obj) response.error("Personi Egziston");
+            if (obj) return Promise.reject("Personi Egziston");
             response.success();
         },
         error: (err) => {
