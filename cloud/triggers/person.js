@@ -7,7 +7,7 @@ Parse.Cloud.beforeSave(personClass, async (request) => {
         console.log("person.isNew()");
         const query = new Parse.Query(personClass);
         query.equalTo(personUniqueKey, person.get(personUniqueKey));
-        const exists = await query.first()
+        const exists = await query.first({ useMasterKey: true })
         if (exists) {
             console.log("Egzistonnnnnnnnnnnnnnn");
             throw new Parse.Error(101, 'Personi egziston');
