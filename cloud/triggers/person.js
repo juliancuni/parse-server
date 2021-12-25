@@ -1,25 +1,30 @@
 const personClass = "Person";
 const personUniqueKey = "nid";
 //Check person unique nid;
-Parse.Cloud.beforeSave(personClass, function (request, response) {
-    var myObject = request.object;
-    console.log(myObject);
-    if (myObject.isNew()) {
-        var query = new Parse.Query(personClass);
-        query.equalTo(personUniqueKey, myObject.get(personUniqueKey));
-        query.count({
-            success: function (number) {
-                if (number > 0) {
-                    response.error("Personi egziston");
-                } else {
-                    response.success();
-                }
-            },
-            error: function (error) {
-                response.success();
-            }
-        })
-    } else {
-        response.success();
+Parse.Cloud.beforeSave(personClass, function(request, response) {
+    if (!request.object.isNew()) {
+       // Let Personi Egziston updates go through
+       response.success();
     }
-});
+    var query = new Parse.Query(personClass);
+    // Add query filters to check for uniqueness
+    query.equalTo(personUniqueKey, request.object.get(personUniqueKey));
+    query.first().then(function(existingObject) {
+       if (existingObject) {
+          response.error("Personi Egziston");
+       } else {
+          // Pass a flag that this is not an Personi Egziston
+          return Parse.Promise.as(false);
+       }
+    }).then(function(existingObject) {
+       if (existingObject) {
+          // Personi Egziston, stop initial save
+          response.error("Personi Egziston");
+       } else {
+          // New object, let the save go through
+          response.success();
+       }
+    }, function(error) {
+       response.error(error);
+    });
+ });
