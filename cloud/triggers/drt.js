@@ -1,6 +1,6 @@
-const entity = "Person";
-const uniqueKey = "nid";
-//Check person unique nid;
+const entity = "tmp_Drt";
+const uniqueKey = "drt";
+//Check drt unique drt;
 Parse.Cloud.beforeSave(entity, async (request) => {
     const person = request.object;
     if (person.isNew()) {
