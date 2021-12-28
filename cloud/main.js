@@ -2,3 +2,4 @@
 // require('./functions.js');
 require('./triggers/person.js');
 require('./triggers/drt.js');
+require('./triggers/subjekti.js');
