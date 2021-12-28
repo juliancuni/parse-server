@@ -8,7 +8,8 @@ Parse.Cloud.beforeSave(entity, async (request) => {
         query.equalTo(uniqueKey, person.get(uniqueKey));
         const exists = await query.first({ useMasterKey: true })
         if (exists) {
-            throw new Parse.Error(1001, entity + ' egziston');
+            // throw new Parse.Error(1001, entity + ' egziston');
+            return exists;
         }
     }
 });
